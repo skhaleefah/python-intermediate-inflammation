@@ -2,6 +2,7 @@
 
 import numpy as np
 import numpy.testing as npt
+import pytest
 
 from inflammation.models import daily_mean
 from inflammation.models import daily_max
@@ -41,3 +42,15 @@ def test_daily_max_integers():
     npt.assert_array_equal(daily_max(test_input), test_result)
 
 
+def test_daily_max_string():
+    """ Test for TypeError when parsing strings with daily_max function """
+
+    with pytest.raises(TypeError):
+        error_expected = daily_max(['Hello', 'there'])
+
+
+def test_daily_mean_string():
+    """ Test for TypeError when parsing strings with daily_mean function """
+
+    with pytest.raises(TypeError):
+        error_expected = daily_mean(['Hello', 'there'])
