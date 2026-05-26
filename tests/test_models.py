@@ -7,6 +7,8 @@ import pytest
 from inflammation.models import daily_mean
 from inflammation.models import daily_max
 
+
+
 def test_daily_mean_zeros():
     """Test that mean function works for an array of zeros."""
     
@@ -54,3 +56,41 @@ def test_daily_mean_string():
 
     with pytest.raises(TypeError):
         error_expected = daily_mean(['Hello', 'there'])
+
+
+## instead of writing test functions for every function like this one by one, we can modularize 
+## and create a single function which takes the functions as inputs. Instead of having a function
+## for zeroes and a function for integers, we write a single function which can do both. 
+
+
+
+# The wrapper applies to the function directly below it. It's like a way of defining a variable temporarily. The wrapper will 
+# tell the function below it that these are the pairs "test_input" and "test_result" and it will feed all of these pairs into the 
+# function directly below it. The arguments of that function should be the same as the keys in this wrapper/decoration. 
+
+@pytest.mark.parametrize(
+        "test_input, test_result",
+        [
+            ([[0,0], [0,0], [0,0]], [0,0]),
+            ([[1,2], [3,4], [5,6]], [3,4]),
+            (np.zeros((3,5)), np.zeros(5))
+        ]
+)
+
+def test_daily_mean(test_input, test_result):
+    """ Test that mean function works for both zeroes and integers """
+    npt.assert_array_equal(daily_mean(test_input), test_result)
+
+
+@pytest.mark.parametrize(
+        "test_input, test_result",
+        [
+            ([[0,0], [0,0], [0,0]], [0,0]),
+            ([[1,2], [3,4], [5,6]], [5,6]),
+            (np.zeros((3,5)), np.zeros(5))
+        ]
+)
+
+def test_daily_max(test_input, test_result):
+    """ Test that max function works for both zeroes and integers """
+    npt.assert_array_equal(daily_max(test_input), test_result)
