@@ -19,7 +19,7 @@ class Patient:
     def get_body_mass_index(self):
         """Compute body mass index: weight_in_kg/ height_in_meters**2
         """
-        return self.weight / self.height**2 
+        return self.weight / (self.height**2)
 
 
 
