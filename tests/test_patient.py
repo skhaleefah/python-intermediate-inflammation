@@ -5,6 +5,10 @@ from inflammation.models import Patient
 def test_create_patient():
 
     name = 'Alice'
-    p = Patient(name=name)
+    w = 50
+    h = 1.8
+    p = Patient(name=name, weight=w, height=h)
 
     assert p.name == name
+    assert p.weight == w
+    assert p.height == h 
