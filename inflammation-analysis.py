@@ -3,7 +3,11 @@
 
 import argparse
 
-from inflammation import models, views
+from inflammation import models, views, analysis
+import os
+
+
+
 
 
 def main(args):
@@ -27,6 +31,11 @@ def main(args):
         }
 
         views.visualize(view_data)
+    
+    data_dir = os.path.dirname(infiles[0])
+    data_source = analysis.CSVDataSource(data_dir=data_dir)
+    data= data_source.load_inflammation_data()
+
 
 
 if __name__ == "__main__":
