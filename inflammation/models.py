@@ -8,8 +8,10 @@ and each column represents a single day across all patients.
 """
 
 import numpy as np
-#data had each row be a patient, so make a class for each patient 
+import json
 
+
+#data had each row be a patient, so make a class for each patient 
 class Patient:
     def __init__(self, name, weight, height):
         self.name = name 
@@ -30,6 +32,24 @@ def load_csv(filename):
     """
     return np.loadtxt(fname=filename, delimiter=',')
 
+
+def load_json(filename):
+    """Load a numpy array from a JSON document.
+    
+    Expected format:
+    [
+      {
+        "observations": [0, 1]
+      },
+      {
+        "observations": [0, 2]
+      }    
+    ]
+    :param filename: Filename of CSV to load
+    """
+    with open(filename, 'r', encoding='utf-8') as file:
+        data_as_json = json.load(file)
+        return [np.array(entry['observations']) for entry in data_as_json]
 
 def daily_mean(data:np.array) -> np.array:
     """ Calculate the daily mean of a 2d inflammation data array
@@ -57,3 +77,5 @@ def daily_min(data: np.array) -> np.array:
     """
     return np.min(data, axis=0)
 
+
+    

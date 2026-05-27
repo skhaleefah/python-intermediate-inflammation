@@ -33,6 +33,13 @@ def main(args):
         views.visualize(view_data)
     
     data_dir = os.path.dirname(infiles[0])
+
+    _, extension = os.path.splitext(infiles[0])
+    if extension == '.csv':
+        data_source = analysis.CSVDataSource(data_dir=data_dir)
+    elif extension == '.json': 
+        data_source = analysis.JSONDataSource(data_dir=data_dir)
+
     data_source = analysis.CSVDataSource(data_dir=data_dir)
     data= data_source.load_inflammation_data()
 

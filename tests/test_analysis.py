@@ -1,4 +1,4 @@
-from inflammation.analysis import analyse_data
+from inflammation.analysis import analyse_data, CSVDataSource
 
 import os 
 import numpy.testing as npt 
@@ -6,7 +6,8 @@ import numpy.testing as npt
 
 def test_analyse_data():
     path = os.path.join(os.getcwd(),'data')
-    result = analyse_data(path)
+    data_source = CSVDataSource(path)
+    result = analyse_data(data_source)
 
     expected_result = [0., 0.22510286, 0.18157299, 0.1264423, 0.9495481, 0.27118211,
  0.25104719, 0.22330897, 0.89680503, 0.21573875, 1.24235548, 0.63042094,
