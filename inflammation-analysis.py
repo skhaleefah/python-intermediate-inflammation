@@ -29,8 +29,12 @@ def main(args):
             "max": models.daily_max(inflammation_data),
             "min": models.daily_min(inflammation_data),
         }
-
-        views.visualize(view_data)
+        outfile = os.path.basename(filename).replace('.csv','.png')
+        if args.outdir:
+            fullpath = os.path.join(args.outdir,outfile)
+            views.visualize(view_data,fullpath)
+        else:
+            views.visualize(view_data, None)
     
     data_dir = os.path.dirname(infiles[0])
 
@@ -54,6 +58,11 @@ if __name__ == "__main__":
         "infiles",
         nargs="+",
         help="Input CSV(s) containing inflammation series for each patient",
+    )
+    
+    parser.add_argument(
+        "-outdir",
+        help="Output directory to save figures as PNG"
     )
 
     args = parser.parse_args()

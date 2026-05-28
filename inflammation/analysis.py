@@ -70,7 +70,8 @@ if __name__ == '__main__':
         type=str, 
         help="Path to the directory containing the inflammation CSV files."
     )
-    
+
+    parser.add_argument()
     # Parse the arguments from the command line
     args = parser.parse_args()
     
